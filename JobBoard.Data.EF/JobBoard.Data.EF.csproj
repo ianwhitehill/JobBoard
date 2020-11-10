@@ -56,7 +56,6 @@
     <Compile Include="ApplicationStatu.cs">
       <DependentUpon>JobBoardModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Class1.cs" />
     <Compile Include="Department.cs">
       <DependentUpon>JobBoardModel.tt</DependentUpon>
     </Compile>
@@ -78,6 +77,13 @@
     <Compile Include="Location.cs">
       <DependentUpon>JobBoardModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Metadata\UserDetailMetadata.cs" />
+    <Compile Include="Metadata\PositionMetadata.cs" />
+    <Compile Include="Metadata\OpenPositionMetadata.cs" />
+    <Compile Include="Metadata\LocationMetadata.cs" />
+    <Compile Include="Metadata\DepartmentMetadata.cs" />
+    <Compile Include="Metadata\ApplicationStatusMetadata.cs" />
+    <Compile Include="Metadata\ApplicationMetadata.cs" />
     <Compile Include="OpenPosition.cs">
       <DependentUpon>JobBoardModel.tt</DependentUpon>
     </Compile>
