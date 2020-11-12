@@ -1,7 +1,9 @@
-﻿using JobBoard.MVC.UI.Models;
+﻿using JobBoard.Data.EF;
+using JobBoard.MVC.UI.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -145,7 +147,7 @@ namespace JobBoard.MVC.UI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model, HttpPostedFileBase newResume)
         {
             if (ModelState.IsValid)
             {
@@ -153,6 +155,39 @@ namespace JobBoard.MVC.UI.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    #region Dealing with custom user details
+                    UserDetail newUserDeets = new UserDetail();
+                    newUserDeets.UserID = user.Id;
+                    newUserDeets.FirstName = model.FirstName;
+                    newUserDeets.LastName = model.LastName;
+                    //newUserDeets.CurrentEmployee = model.CurrentEmployee;
+                    //newUserDeets.DepartmentId = model.DepartmentId;
+                    //newUserDeets.ResumeFile = model.ResumeFile;//--TODO: handle file upload
+                    #region file upload
+                    string resName = "noResume.pdf";
+                    if (newResume != null)
+                    {
+                        resName = newResume.FileName;
+
+                        string ext = resName.Substring(resName.LastIndexOf("."));
+
+                        string[] goodExts = { ".pdf", ".doc" };
+
+                        if (goodExts.Contains(ext.ToLower()))
+                        {
+                            //newResume = Guid.NewGuid() + ext.ToLower();
+
+                            string savePath = Server.MapPath("~/Resumes/");
+
+
+                        }
+                    }
+                    #endregion
+                    JobBoardEntities db = new JobBoardEntities();
+                    db.UserDetails.Add(newUserDeets);
+                    db.SaveChanges();
+                    #endregion
+
                     var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");

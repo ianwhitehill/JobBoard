@@ -640,8 +640,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Resumes\" />
+    <Folder Include="Resumes\" />
     <Folder Include="Views\ContactEmailModel\" />
+    <Folder Include="Views\FileUpload\" />
     <Folder Include="_Archive\distribution\vendor\font-awesome\less\" />
     <Folder Include="_Archive\distribution\vendor\font-awesome\scss\" />
     <Folder Include="_Archive\distribution\vendor\jquery.counterup\demo\" />
