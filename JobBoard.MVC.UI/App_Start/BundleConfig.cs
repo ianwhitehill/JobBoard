@@ -34,7 +34,7 @@ namespace JobBoard.MVC.UI
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/css/bootstrap.min.css",
-                      "~/Content/css/font-awesome.min.css",
+                      "~/Content/css/vendor/font-awesome/css/font-awesome.min.css",
                       "~/Content/css/bootstrap-select.min.css",
                       "~/Content/css/owl.carousel.css",
                       "~/Content/css/owl.theme.default.css",
