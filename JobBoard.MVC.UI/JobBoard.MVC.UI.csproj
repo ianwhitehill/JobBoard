@@ -532,6 +532,7 @@
     <Content Include="Content\css\vendor\font-awesome\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\css\vendor\font-awesome\fonts\fontawesome-webfont.woff2" />
     <Content Include="Content\css\vendor\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="Resumes\noResume.pdf" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -640,7 +641,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Resumes\" />
     <Folder Include="Views\ContactEmailModel\" />
     <Folder Include="Views\FileUpload\" />
     <Folder Include="_Archive\distribution\vendor\font-awesome\less\" />

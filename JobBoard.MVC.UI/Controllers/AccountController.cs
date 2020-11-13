@@ -160,9 +160,8 @@ namespace JobBoard.MVC.UI.Controllers
                     newUserDeets.UserID = user.Id;
                     newUserDeets.FirstName = model.FirstName;
                     newUserDeets.LastName = model.LastName;
-                    //newUserDeets.CurrentEmployee = model.CurrentEmployee;
-                    //newUserDeets.DepartmentId = model.DepartmentId;
-                    //newUserDeets.ResumeFile = model.ResumeFile;//--TODO: handle file upload
+                    newUserDeets.CurrentEmployee = model.CurrentEmployee;
+                    newUserDeets.DepartmentId = model.DepartmentId;
                     #region file upload
                     string resName = "noResume.pdf";
                     if (newResume != null)
@@ -171,18 +170,21 @@ namespace JobBoard.MVC.UI.Controllers
 
                         string ext = resName.Substring(resName.LastIndexOf("."));
 
-                        string[] goodExts = { ".pdf", ".doc" };
+                        string[] goodExts = { ".pdf", ".doc", ".docx", ".docm", ".txt" };
 
                         if (goodExts.Contains(ext.ToLower()))
                         {
-                            //newResume = Guid.NewGuid() + ext.ToLower();
+                            resName = Guid.NewGuid() + ext.ToLower();
 
                             string savePath = Server.MapPath("~/Resumes/");
-
-
+                        }
+                        else
+                        {
+                            resName = "noResume.pdf";
                         }
                     }
                     #endregion
+                    newUserDeets.ResumeFileName = resName;
                     JobBoardEntities db = new JobBoardEntities();
                     db.UserDetails.Add(newUserDeets);
                     db.SaveChanges();

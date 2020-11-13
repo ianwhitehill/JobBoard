@@ -4,60 +4,60 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="JobBoardModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Alias="Self" Namespace="JobBoardModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012">
         <EntityType Name="Applications">
           <Key>
             <PropertyRef Name="ApplicationId" />
           </Key>
-          <Property Name="ApplicationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="OpenPositionId" Type="int" Nullable="false" />
-          <Property Name="ApplicationDate" Type="date" Nullable="false" />
-          <Property Name="ManagerNotes" Type="varchar" MaxLength="200" />
-          <Property Name="ApplicationStatusID" Type="int" Nullable="false" />
-          <Property Name="ResumeFilename" Type="varchar" MaxLength="75" Nullable="false" />
+          <Property Name="ApplicationId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="UserId" Nullable="false" MaxLength="128" Type="nvarchar" />
+          <Property Name="OpenPositionId" Nullable="false" Type="int" />
+          <Property Name="ApplicationDate" Nullable="false" Type="date" />
+          <Property Name="ManagerNotes" MaxLength="200" Type="varchar" />
+          <Property Name="ApplicationStatusID" Nullable="false" Type="int" />
+          <Property Name="ResumeFilename" Nullable="false" MaxLength="75" Type="varchar" />
         </EntityType>
         <EntityType Name="ApplicationStatus">
           <Key>
             <PropertyRef Name="ApplicationStatusId" />
           </Key>
-          <Property Name="ApplicationStatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="StatusName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="StatusDescription" Type="varchar" MaxLength="250" />
+          <Property Name="ApplicationStatusId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="StatusName" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="StatusDescription" MaxLength="250" Type="varchar" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
             <PropertyRef Name="DepartmetntId" />
           </Key>
-          <Property Name="DepartmetntId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DepartmentName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DepartmetntId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="DepartmentName" Nullable="false" MaxLength="50" Type="varchar" />
         </EntityType>
         <EntityType Name="Locations">
           <Key>
             <PropertyRef Name="LocationId" />
           </Key>
-          <Property Name="LocationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="StoreNumber" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="City" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="State" Type="varchar" MaxLength="2" Nullable="false" />
-          <Property Name="ManagerId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="LocationId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="StoreNumber" Nullable="false" MaxLength="10" Type="varchar" />
+          <Property Name="City" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="State" Nullable="false" MaxLength="2" Type="varchar" />
+          <Property Name="ManagerId" Nullable="false" MaxLength="128" Type="nvarchar" />
         </EntityType>
         <EntityType Name="OpenPositions">
           <Key>
             <PropertyRef Name="OpenPositionId" />
           </Key>
-          <Property Name="OpenPositionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="LocationId" Type="int" Nullable="false" />
-          <Property Name="PositionId" Type="int" Nullable="false" />
-          <Property Name="CloseDate" Type="date" Nullable="false" />
-          <Property Name="Internal" Type="bit" Nullable="false" />
+          <Property Name="OpenPositionId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="LocationId" Nullable="false" Type="int" />
+          <Property Name="PositionId" Nullable="false" Type="int" />
+          <Property Name="CloseDate" Nullable="false" Type="date" />
+          <Property Name="Internal" Nullable="false" Type="bit" />
         </EntityType>
         <EntityType Name="Positions">
           <Key>
             <PropertyRef Name="PositionId" />
           </Key>
-          <Property Name="PositionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PositionId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Title" Nullable="false" MaxLength="50" Type="varchar" />
           <Property Name="JobDescription" Type="varchar(max)" />
           <Property Name="DepartmentID" Type="int" />
         </EntityType>
@@ -65,16 +65,16 @@
           <Key>
             <PropertyRef Name="UserID" />
           </Key>
-          <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="ResumeFileName" Type="varchar" MaxLength="75" />
-          <Property Name="CurrentEmployee" Type="bit" Nullable="false" />
-          <Property Name="DepartmentId" Type="int" Nullable="false" />
+          <Property Name="UserID" Nullable="false" MaxLength="128" Type="nvarchar" />
+          <Property Name="FirstName" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="LastName" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="ResumeFileName" MaxLength="75" Type="varchar" />
+          <Property Name="CurrentEmployee" Nullable="false" Type="bit" />
+          <Property Name="DepartmentId" Nullable="false" Type="int" />
         </EntityType>
         <Association Name="FK_Applications_ApplicationStatus">
-          <End Role="ApplicationStatus" Type="Self.ApplicationStatus" Multiplicity="1" />
-          <End Role="Applications" Type="Self.Applications" Multiplicity="*" />
+          <End Type="Self.ApplicationStatus" Multiplicity="1" Role="ApplicationStatus" />
+          <End Type="Self.Applications" Multiplicity="*" Role="Applications" />
           <ReferentialConstraint>
             <Principal Role="ApplicationStatus">
               <PropertyRef Name="ApplicationStatusId" />
@@ -85,8 +85,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Applications_OpenPositions">
-          <End Role="OpenPositions" Type="Self.OpenPositions" Multiplicity="1" />
-          <End Role="Applications" Type="Self.Applications" Multiplicity="*" />
+          <End Type="Self.OpenPositions" Multiplicity="1" Role="OpenPositions" />
+          <End Type="Self.Applications" Multiplicity="*" Role="Applications" />
           <ReferentialConstraint>
             <Principal Role="OpenPositions">
               <PropertyRef Name="OpenPositionId" />
@@ -97,8 +97,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Applications_UserDetails">
-          <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="1" />
-          <End Role="Applications" Type="Self.Applications" Multiplicity="*" />
+          <End Type="Self.UserDetails" Multiplicity="1" Role="UserDetails" />
+          <End Type="Self.Applications" Multiplicity="*" Role="Applications" />
           <ReferentialConstraint>
             <Principal Role="UserDetails">
               <PropertyRef Name="UserID" />
@@ -109,8 +109,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Locations_UserDetails">
-          <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="1" />
-          <End Role="Locations" Type="Self.Locations" Multiplicity="*" />
+          <End Type="Self.UserDetails" Multiplicity="1" Role="UserDetails" />
+          <End Type="Self.Locations" Multiplicity="*" Role="Locations" />
           <ReferentialConstraint>
             <Principal Role="UserDetails">
               <PropertyRef Name="UserID" />
@@ -121,8 +121,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OpenPositions_Locations">
-          <End Role="Locations" Type="Self.Locations" Multiplicity="1" />
-          <End Role="OpenPositions" Type="Self.OpenPositions" Multiplicity="*" />
+          <End Type="Self.Locations" Multiplicity="1" Role="Locations" />
+          <End Type="Self.OpenPositions" Multiplicity="*" Role="OpenPositions" />
           <ReferentialConstraint>
             <Principal Role="Locations">
               <PropertyRef Name="LocationId" />
@@ -133,8 +133,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OpenPositions_Positions">
-          <End Role="Positions" Type="Self.Positions" Multiplicity="1" />
-          <End Role="OpenPositions" Type="Self.OpenPositions" Multiplicity="*" />
+          <End Type="Self.Positions" Multiplicity="1" Role="Positions" />
+          <End Type="Self.OpenPositions" Multiplicity="*" Role="OpenPositions" />
           <ReferentialConstraint>
             <Principal Role="Positions">
               <PropertyRef Name="PositionId" />
@@ -145,8 +145,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Positions_Department">
-          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
-          <End Role="Positions" Type="Self.Positions" Multiplicity="*" />
+          <End Type="Self.Department" Multiplicity="0..1" Role="Department" />
+          <End Type="Self.Positions" Multiplicity="*" Role="Positions" />
           <ReferentialConstraint>
             <Principal Role="Department">
               <PropertyRef Name="DepartmetntId" />
@@ -157,8 +157,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserDetails_Department">
-          <End Role="Department" Type="Self.Department" Multiplicity="1" />
-          <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="*" />
+          <End Type="Self.Department" Multiplicity="1" Role="Department" />
+          <End Type="Self.UserDetails" Multiplicity="*" Role="UserDetails" />
           <ReferentialConstraint>
             <Principal Role="Department">
               <PropertyRef Name="DepartmetntId" />
@@ -177,36 +177,36 @@
           <EntitySet Name="Positions" EntityType="Self.Positions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserDetails" EntityType="Self.UserDetails" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Applications_ApplicationStatus" Association="Self.FK_Applications_ApplicationStatus">
-            <End Role="ApplicationStatus" EntitySet="ApplicationStatus" />
-            <End Role="Applications" EntitySet="Applications" />
+            <End EntitySet="ApplicationStatus" Role="ApplicationStatus" />
+            <End EntitySet="Applications" Role="Applications" />
           </AssociationSet>
           <AssociationSet Name="FK_Applications_OpenPositions" Association="Self.FK_Applications_OpenPositions">
-            <End Role="OpenPositions" EntitySet="OpenPositions" />
-            <End Role="Applications" EntitySet="Applications" />
+            <End EntitySet="OpenPositions" Role="OpenPositions" />
+            <End EntitySet="Applications" Role="Applications" />
           </AssociationSet>
           <AssociationSet Name="FK_Applications_UserDetails" Association="Self.FK_Applications_UserDetails">
-            <End Role="UserDetails" EntitySet="UserDetails" />
-            <End Role="Applications" EntitySet="Applications" />
+            <End EntitySet="UserDetails" Role="UserDetails" />
+            <End EntitySet="Applications" Role="Applications" />
           </AssociationSet>
           <AssociationSet Name="FK_Locations_UserDetails" Association="Self.FK_Locations_UserDetails">
-            <End Role="UserDetails" EntitySet="UserDetails" />
-            <End Role="Locations" EntitySet="Locations" />
+            <End EntitySet="UserDetails" Role="UserDetails" />
+            <End EntitySet="Locations" Role="Locations" />
           </AssociationSet>
           <AssociationSet Name="FK_OpenPositions_Locations" Association="Self.FK_OpenPositions_Locations">
-            <End Role="Locations" EntitySet="Locations" />
-            <End Role="OpenPositions" EntitySet="OpenPositions" />
+            <End EntitySet="Locations" Role="Locations" />
+            <End EntitySet="OpenPositions" Role="OpenPositions" />
           </AssociationSet>
           <AssociationSet Name="FK_OpenPositions_Positions" Association="Self.FK_OpenPositions_Positions">
-            <End Role="Positions" EntitySet="Positions" />
-            <End Role="OpenPositions" EntitySet="OpenPositions" />
+            <End EntitySet="Positions" Role="Positions" />
+            <End EntitySet="OpenPositions" Role="OpenPositions" />
           </AssociationSet>
           <AssociationSet Name="FK_Positions_Department" Association="Self.FK_Positions_Department">
-            <End Role="Department" EntitySet="Department" />
-            <End Role="Positions" EntitySet="Positions" />
+            <End EntitySet="Department" Role="Department" />
+            <End EntitySet="Positions" Role="Positions" />
           </AssociationSet>
           <AssociationSet Name="FK_UserDetails_Department" Association="Self.FK_UserDetails_Department">
-            <End Role="Department" EntitySet="Department" />
-            <End Role="UserDetails" EntitySet="UserDetails" />
+            <End EntitySet="Department" Role="Department" />
+            <End EntitySet="UserDetails" Role="UserDetails" />
           </AssociationSet>
         </EntityContainer>
       </Schema>

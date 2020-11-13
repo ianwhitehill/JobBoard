@@ -83,12 +83,12 @@ namespace JobBoard.MVC.UI.Models
         [Required]
         public string FirstName { get; set; }
         [Required]
-        public string LastName { get; set; }        //[Required]
-        //public bool CurrentEmployee { get; set; }
-        
-        //public int DepartmentId { get; set; }
+        public string LastName { get; set; }        [Required]
+        public bool CurrentEmployee { get; set; }
 
-        //public string ResumeFileName { get; set; }
+        public int DepartmentId { get; set; }
+
+        public string ResumeFileName { get; set; }
     }
 
     public class ResetPasswordViewModel
