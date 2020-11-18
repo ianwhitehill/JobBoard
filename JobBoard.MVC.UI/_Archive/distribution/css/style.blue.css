@@ -2223,12 +2223,12 @@ ul ul a.nav-link {
   margin: 0;
 }
 
-footer.main-footer {
+/*footer.main-footer {
   padding: 60px 0;
   padding-bottom: 0;
   background: #555;
   color: #fff;
-}
+}*/
 
 footer.main-footer a {
   color: inherit;

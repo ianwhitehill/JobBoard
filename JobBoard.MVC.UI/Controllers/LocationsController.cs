@@ -10,6 +10,7 @@ using JobBoard.Data.EF;
 
 namespace JobBoard.MVC.UI.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class LocationsController : Controller
     {
         private JobBoardEntities db = new JobBoardEntities();

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace JobBoard.MVC.UI.Controllers
 {
@@ -18,10 +19,11 @@ namespace JobBoard.MVC.UI.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, ApplicationRoleManager roleManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            RoleManager = roleManager;
         }
 
         private ApplicationUserManager _userManager;
@@ -37,6 +39,18 @@ namespace JobBoard.MVC.UI.Controllers
             }
         }
 
+        private ApplicationRoleManager _roleManager;
+        public ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return _roleManager ?? HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
+            }
+            private set
+            {
+                _roleManager = value;
+            }
+        }
         //
         // GET: /Account/Login
         [HttpGet]
@@ -137,8 +151,9 @@ namespace JobBoard.MVC.UI.Controllers
         // GET: /Account/Register
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult Register()
+        public async Task<ActionResult> Register()
         {
+            ViewBag.RoleId = new SelectList(await RoleManager.Roles.ToListAsync(), "Name", "Name");
             return View();
         }
 
@@ -147,21 +162,45 @@ namespace JobBoard.MVC.UI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model, HttpPostedFileBase newResume)
+        public async Task<ActionResult> Register(RegisterViewModel model, HttpPostedFileBase newResume, params string[] selectedRoles)
         {
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                var adminresult = await UserManager.CreateAsync(user, model.Password);
+                if (adminresult.Succeeded)
                 {
+
                     #region Dealing with custom user details
+
                     UserDetail newUserDeets = new UserDetail();
                     newUserDeets.UserID = user.Id;
                     newUserDeets.FirstName = model.FirstName;
                     newUserDeets.LastName = model.LastName;
                     newUserDeets.CurrentEmployee = model.CurrentEmployee;
                     newUserDeets.DepartmentId = model.DepartmentId;
+                    if (adminresult.Succeeded)
+                    {
+                        if (selectedRoles != null)
+                        {
+                            var result = await UserManager.AddToRolesAsync(user.Id, selectedRoles);
+                            if (!result.Succeeded)
+                            {
+                                ModelState.AddModelError("", result.Errors.First());
+                                ViewBag.RoleId = new SelectList(await RoleManager.Roles.ToListAsync(), "Name", "Name");
+                                return View();
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", adminresult.Errors.First());
+                        ViewBag.RoleId = new SelectList(RoleManager.Roles, "Name", "Name");
+                        return View();
+                    }
+
+
                     #region file upload
                     string resName = "noResume.pdf";
                     if (newResume != null)
@@ -177,6 +216,8 @@ namespace JobBoard.MVC.UI.Controllers
                             resName = Guid.NewGuid() + ext.ToLower();
 
                             string savePath = Server.MapPath("~/Resumes/");
+
+                            newResume.SaveAs(savePath + resName);
                         }
                         else
                         {
@@ -184,6 +225,7 @@ namespace JobBoard.MVC.UI.Controllers
                         }
                     }
                     #endregion
+                    
                     newUserDeets.ResumeFileName = resName;
                     JobBoardEntities db = new JobBoardEntities();
                     db.UserDetails.Add(newUserDeets);
@@ -196,7 +238,7 @@ namespace JobBoard.MVC.UI.Controllers
                     ViewBag.Link = callbackUrl;
                     return View("DisplayEmail");
                 }
-                AddErrors(result);
+                AddErrors(adminresult);
             }
 
             // If we got this far, something failed, redisplay form

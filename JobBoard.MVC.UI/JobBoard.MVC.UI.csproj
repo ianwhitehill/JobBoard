@@ -205,7 +205,9 @@
     <Content Include="Content\css\owl.carousel.css" />
     <Content Include="Content\css\owl.theme.default.css" />
     <Content Include="Content\css\style.default.css" />
-    <Content Include="Content\imgs\LastManStandingLogo.png" />
+    <Content Include="Content\imgs\cube.jpg" />
+    <Content Include="Content\imgs\icons.jpg" />
+    <Content Include="Content\imgs\JobBoardLogo.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

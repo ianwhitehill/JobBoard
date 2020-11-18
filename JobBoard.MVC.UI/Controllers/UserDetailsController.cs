@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -82,10 +83,30 @@ namespace JobBoard.MVC.UI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserID,FirstName,LastName,ResumeFileName,CurrentEmployee,DepartmentId")] UserDetail userDetail)
+        public ActionResult Edit([Bind(Include = "UserID,FirstName,LastName,ResumeFileName,CurrentEmployee,DepartmentId")] UserDetail userDetail, HttpPostedFileBase newResume)
         {
             if (ModelState.IsValid)
             {
+                #region file upload
+                string resName = newResume.FileName;
+                if (newResume != null)
+                {           
+                    string ext = resName.Substring(resName.LastIndexOf("."));
+
+                    string[] goodExts = { ".pdf", ".doc", ".docx", ".docm", ".txt" };
+
+                    if (goodExts.Contains(ext.ToLower()))
+                    {
+                        resName = Guid.NewGuid() + ext.ToLower();
+
+                        string savePath = Server.MapPath("~/Resumes/");
+
+                        newResume.SaveAs(savePath + resName);
+                    }
+      
+                }
+                #endregion
+                userDetail.ResumeFileName = resName;
                 db.Entry(userDetail).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

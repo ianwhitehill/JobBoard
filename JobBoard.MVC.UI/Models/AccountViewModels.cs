@@ -89,6 +89,8 @@ namespace JobBoard.MVC.UI.Models
         public int DepartmentId { get; set; }
 
         public string ResumeFileName { get; set; }
+
+        public string UserRole { get; set; }
     }
 
     public class ResetPasswordViewModel
