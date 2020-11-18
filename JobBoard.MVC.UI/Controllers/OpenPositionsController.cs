@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using JobBoard.Data.EF;
+using JobBoard.MVC.UI.Models;
+using Microsoft.AspNet.Identity;
 
 namespace JobBoard.MVC.UI.Controllers
 {
@@ -36,6 +38,23 @@ namespace JobBoard.MVC.UI.Controllers
             return View(openPosition);
         }
 
+        [HttpPost]
+        public ActionResult Details(int id)
+        {
+            string userId = User.Identity.GetUserId();
+            UserDetail userDet = db.UserDetails.Find(userId);
+            Application newApp = new Application();
+            newApp.UserId = userId;
+            newApp.ApplicationDate = DateTime.Now;
+            newApp.OpenPositionId = id;
+            newApp.ResumeFilename = userDet.ResumeFileName;
+            newApp.ApplicationStatusID = 1;
+
+            db.Applications.Add(newApp);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
         // GET: OpenPositions/Create
         public ActionResult Create()
         {
@@ -47,7 +66,7 @@ namespace JobBoard.MVC.UI.Controllers
         // POST: OpenPositions/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ActionName("Apply")]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "OpenPositionId,LocationId,PositionId,CloseDate,Internal")] OpenPosition openPosition)
         {

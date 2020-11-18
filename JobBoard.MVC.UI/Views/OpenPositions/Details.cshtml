@@ -1,50 +1,57 @@
 ﻿@model JobBoard.Data.EF.OpenPosition
-
 @{
     ViewBag.Title = "Details";
 }
-
 <h2>Details</h2>
 
-<div>
-    <h4>OpenPosition</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.CloseDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CloseDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Internal)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Internal)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Location.StoreNumber)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Location.StoreNumber)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Position.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Position.Title)
-        </dd>
-
-    </dl>
-</div>
+@using (Html.BeginForm())
+{
+    <div>
+        <h4>OpenPosition</h4>
+        <hr />
+        <div id="dialog" title="Resume">
+            <p>Ensure your resume is up to date before applying for this Potions. You can upload a new resume if need in your User settings above.</p>
+        </div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.CloseDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CloseDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Internal)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Internal)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Location.StoreNumber)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Location.StoreNumber)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Position.Title)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Position.Title)
+            </dd>
+        </dl>
+        <div class="form-actions"><input type="submit" value="Apply" class="btn btn-default" /></div>
+    </div>
+}
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.OpenPositionId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(function () {
+            $("#dialog").dialog();
+        });
+    </script>
+}
