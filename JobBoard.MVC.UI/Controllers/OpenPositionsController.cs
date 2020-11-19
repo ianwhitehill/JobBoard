@@ -48,7 +48,7 @@ namespace JobBoard.MVC.UI.Controllers
             newApp.ApplicationDate = DateTime.Now;
             newApp.OpenPositionId = id;
             newApp.ResumeFilename = userDet.ResumeFileName;
-            newApp.ApplicationStatusID = 1;
+            newApp.ApplicationStatusID = 5;
 
             db.Applications.Add(newApp);
             db.SaveChanges();
@@ -56,6 +56,7 @@ namespace JobBoard.MVC.UI.Controllers
         }
 
         // GET: OpenPositions/Create
+        [Authorize(Roles = "Admin, Manager")]
         public ActionResult Create()
         {
             ViewBag.LocationId = new SelectList(db.Locations, "LocationId", "StoreNumber");
@@ -83,6 +84,7 @@ namespace JobBoard.MVC.UI.Controllers
         }
 
         // GET: OpenPositions/Edit/5
+        [Authorize(Roles = "Admin, Manager")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -118,6 +120,7 @@ namespace JobBoard.MVC.UI.Controllers
         }
 
         // GET: OpenPositions/Delete/5
+        [Authorize(Roles = "Admin, Manager")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

@@ -9,12 +9,12 @@
     <link rel="shortcut icon" href="~/Content/imgs/icons.jpg" type="image/x-icon">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/overcast/jquery-ui.css" />
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" />
     <!-- Tweaks for older IEs-->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/overcast/jquery-ui.css" />
-    <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" />
 </head>
 <body>
     @using Microsoft.AspNet.Identity
@@ -68,72 +68,74 @@
                     <button type="button" data-toggle="collapse" data-target="#navigation" class="navbar-toggler btn-template-outlined"><span class="sr-only">Toggle navigation</span><i class="fa fa-align-justify"></i></button>
                     <div id="navigation" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav ml-auto">
-                            <li class="nav-item dropdown">
-                                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
-                                {
-                                    <a href="javascript: void(0)" data-toggle="dropdown" class="dropdown-toggle">Users<b class="caret"></b></a>
+                            @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item dropdown">
+                                    <a href="javascript: void(0)" data-toggle="dropdown" class="dropdown-toggle"><i class="fa fa-cog"></i>Users<b class="caret"></b></a>
                                     <ul class="dropdown-menu">
                                         <li class="dropdown-item"><a href="@Url.Action("Index", "RolesAdmin")" class="nav-link">Roles</a></li>
                                         <li class="dropdown-item"><a href="@Url.Action("Index", "UsersAdmin")" class="nav-link">Users</a></li>
+                                        <li class="dropdown-item"><a href="@Url.Action("Index", "UserDetails")" class="nav-link">User Details</a></li>
                                     </ul>
-                                }
-                            </li>
+                                </li>
+                            }
                             @if (Request.IsAuthenticated && User.IsInRole("Admin") || User.IsInRole("Manager"))
                             {
                                 <li class="nav-item dropdown menu-large">
-                                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">Location<b class="caret"></b></a>
+                                    <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="fa fa-cog"></i>Manage<b class="caret"></b></a>
                                     <ul class="dropdown-menu megamenu">
                                         <li>
                                             <div class="row">
                                                 <div class="col-lg-6"><img src="~/Content/imgs/cube.jpg" alt="" class="img-fluid d-none d-lg-block"></div>
-                                                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
-                                                {
-                                                    <div class="col-lg-3 col-md-6">
-                                                        <h5>Locations</h5>
-                                                        <ul class="list-unstyled mb-3">
-                                                            <li class="nav-item"><a href="@Url.Action("Index", "Locations")" class="nav-link">Locations</a></li>
-                                                            <li class="nav-item"><a href="@Url.Action("Create", "Locations")" class="nav-link">Add a Location</a></li>
-                                                        </ul>
-                                                    </div>
-                                                }
                                                 <div class="col-lg-3 col-md-6">
-                                                    <h5>Departments</h5>
                                                     <ul class="list-unstyled mb-3">
+                                                        <li class="nav-item"><a href="@Url.Action("Index", "OpenPositions")" class="nav-link">Edit/Remove Open Positions</a></li>
+                                                        <li class="nav-item"><a href="@Url.Action("Create", "OpenPositions")" class="nav-link">Post an Open Position</a></li>
+                                                        <li class="nav-item"><a href="@Url.Action("Index", "Positions")" class="nav-link">Edit/Remove Avaible Positions</a></li>
+                                                        <li class="nav-item"><a href="@Url.Action("Create", "Positions")" class="nav-link">Create a Position</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-lg-3 col-md-6">
+                                                    <ul class="list-unstyled mb-3">
+                                                        <li class="nav-item"><a href="@Url.Action("Index", "Applications")" class="nav-link">View/Update Applications</a></li>
+
                                                         <li class="nav-item"><a href="@Url.Action("Index", "Departments")" class="nav-link">Departments</a></li>
-                                                        @if (Request.IsAuthenticated && User.IsInRole("Admin"))
-                                                        {
-                                                            <li class="nav-item"><a href="@Url.Action("Create", "Departments")" class="nav-link">Create a Department</a></li>}
                                                     </ul>
                                                 </div>
                                             </div>
                                         </li>
                                     </ul>
                                 </li>
+                            }
+                            @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                            {
                                 <li class="nav-item dropdown">
-                                    <a href="javascript: void(0)" data-toggle="dropdown" class="dropdown-toggle">Positions<b class="caret"></b></a>
+                                    <a href="javascript: void(0)" data-toggle="dropdown" class="dropdown-toggle"><i class="fa fa-cog"></i>Admin<b class="caret"></b></a>
                                     <ul class="dropdown-menu">
-                                        @if (Request.IsAuthenticated && User.IsInRole("Admin"))
-                                        {
-                                            <li class="dropdown-item"><a href="@Url.Action("Create", "Positions")" class="nav-link">Create a Positions</a></li>
-                                            <li class="dropdown-item"><a href="@Url.Action("Index", "Positions")" class="nav-link">Edit / Remove Position</a></li>
-                                        }
-                                        <li class="dropdown-item"><a href="@Url.Action("Index", "OpenPositions")" class="nav-link">Edit / remove an Open Position</a></li>
-                                        <li class="dropdown-item"><a href="@Url.Action("Create", "OpenPositions")" class="nav-link">Post a new Position</a></li>
-                                        @if (Request.IsAuthenticated && User.IsInRole("Admin"))
-                                        {
-                                            <li class="dropdown-item dropdown-submenu">
-                                                <a id="navbarDropdownMenuLink2" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Application Status</a>
-                                                <ul aria-labelledby="navbarDropdownMenuLink2" class="dropdown-menu">
-                                                    <li class="dropdown-item"><a href="@Url.Action("Index", "ApplicationStatus")" class="nav-link">Application Status</a></li>
-                                                    <li class="dropdown-item"><a href="@Url.Action("Create", "ApplicationStatus")" class="nav-link">Create New Status</a></li>
-                                                </ul>
-                                            </li>
-                                        }
+
+                                        <li class="dropdown-item"><a href="@Url.Action("Create", "Locations")" class="nav-link">Create a Location</a></li>
+                                        <li class="dropdown-item"><a href="@Url.Action("Index", "Locations")" class="nav-link">Edit/Remove Locations</a></li>
+                                        <li class="nav-item"><a href="@Url.Action("Create", "Departments")" class="nav-link">Create a Department</a></li>
+                                        <li class="dropdown-item"><a href="@Url.Action("Index", "Departments")" class="nav-link">Edit/Remove Departments</a></li>
+                                        <li class="dropdown-item dropdown-submenu">
+                                            <a id="navbarDropdownMenuLink2" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Application Status</a>
+                                            <ul aria-labelledby="navbarDropdownMenuLink2" class="dropdown-menu">
+                                                <li class="dropdown-item"><a href="@Url.Action("Index", "ApplicationStatus")" class="nav-link">Application Status</a></li>
+                                                <li class="dropdown-item"><a href="@Url.Action("Create", "ApplicationStatus")" class="nav-link">Create New Status</a></li>
+                                            </ul>
+                                        </li>
                                     </ul>
                                 </li>
                             }
                             <li class="nav-item dropdown">
-                                <a href="@Url.Action("Index", "OpenPositions")">Open Positions</a>
+                                <a href="javascript: void(0)" data-toggle="dropdown" class="dropdown-toggle">Career Services<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-item"><a href="@Url.Action("Index", "OpenPositions")" class="nav-link">Open Positions</a></li>
+                                    @if (Request.IsAuthenticated)
+                                    {
+                                        <li class="dropdown-item"><a href="@Url.Action("Index", "Applications")" class="nav-link">Your Applications</a></li>
+                                    }
+                                </ul>
                             </li>
                             <li class="active">
                                 <a href="@Url.Action("Contact", "Home")">Contact</a>
@@ -155,7 +157,7 @@
         <main class="container">
             @RenderBody()
         </main>
-        <footer class="main-footer fixed-bottom">
+        <footer class="main-footer">
             <div class="copyrights">
                 <div class="container">
                     <div class="row">

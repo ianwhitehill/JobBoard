@@ -7,9 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using JobBoard.Data.EF;
+using Microsoft.AspNet.Identity;
 
 namespace JobBoard.MVC.UI.Controllers
 {
+    [Authorize]
     public class ApplicationsController : Controller
     {
         private JobBoardEntities db = new JobBoardEntities();
@@ -17,8 +19,19 @@ namespace JobBoard.MVC.UI.Controllers
         // GET: Applications
         public ActionResult Index()
         {
-            var applications = db.Applications.Include(a => a.ApplicationStatu).Include(a => a.OpenPosition).Include(a => a.UserDetail);
-            return View(applications.ToList());
+            string userId = User.Identity.GetUserId();
+            var applications = db.Applications.Include(a => a.ApplicationStatu).Include(a => a.OpenPosition).Include(a => a.UserDetail).Where(a => a.UserId == userId);
+            if (User.IsInRole("Admin"))
+            {
+                applications = db.Applications.Include(a => a.ApplicationStatu).Include(a => a.OpenPosition).Include(a => a.UserDetail);
+                return View(applications.ToList());
+            }
+            if (User.IsInRole("Manager"))
+            {
+                applications = db.Applications.Include(a => a.ApplicationStatu).Include(a => a.OpenPosition).Include(a => a.UserDetail).Where(a => a.OpenPosition.Location.ManagerId == userId || a.UserId == userId);
+                 return View(applications.ToList());
+            }
+                return View(applications.ToList());
         }
 
         // GET: Applications/Details/5
