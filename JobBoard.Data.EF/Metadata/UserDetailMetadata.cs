@@ -8,7 +8,14 @@ using System.ComponentModel.DataAnnotations;
 namespace JobBoard.Data.EF
 {
     [MetadataType(typeof(UserDetailMetadata))]
-    public partial class UserDetail { }
+    public partial class UserDetail
+    {
+        [Display(Name = "Name")]
+        public string userFullname
+        {
+            get { return ($"{FirstName} {LastName}"); }
+        }
+    }
 
     public class UserDetailMetadata
     {

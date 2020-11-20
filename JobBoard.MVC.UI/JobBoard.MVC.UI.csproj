@@ -624,7 +624,6 @@
     <Content Include="Views\Locations\Details.cshtml" />
     <Content Include="Views\Locations\Edit.cshtml" />
     <Content Include="Views\Locations\Index.cshtml" />
-    <Content Include="Views\OpenPositions\Create.cshtml" />
     <Content Include="Views\OpenPositions\Delete.cshtml" />
     <Content Include="Views\OpenPositions\Details.cshtml" />
     <Content Include="Views\OpenPositions\Edit.cshtml" />
@@ -640,6 +639,8 @@
     <Content Include="Views\UserDetails\Edit.cshtml" />
     <Content Include="Views\UserDetails\Index.cshtml" />
     <Content Include="Views\Home\EmailConfirmation.cshtml" />
+    <Content Include="Views\OpenPositions\Create.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
