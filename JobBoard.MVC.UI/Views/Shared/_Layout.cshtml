@@ -135,6 +135,10 @@
                                     {
                                         <li class="dropdown-item"><a href="@Url.Action("Index", "Applications")" class="nav-link">Your Applications</a></li>
                                     }
+                                    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                                    {
+                                        <li class="dropdown-item"><a href="@Url.Action("SummitedApplications", "Applications")" class="nav-link">Summited Applications</a></li>
+                                    }
                                 </ul>
                             </li>
                             <li class="active">

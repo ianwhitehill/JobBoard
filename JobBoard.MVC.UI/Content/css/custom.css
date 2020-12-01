@@ -12,6 +12,10 @@
     max-height: 64px;
 }
 
+#jumbo {
+    border-radius: 0px;
+}
+
 @media screen and (max-width: 769px) {
     #logosize {
         display: inline-block;

@@ -4,10 +4,8 @@
     ViewBag.Title = "Index";
 }
 
+<h2>Application Status</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -29,7 +27,6 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ApplicationStatusId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ApplicationStatusId }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.ApplicationStatusId })
         </td>
     </tr>

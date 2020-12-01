@@ -15,6 +15,8 @@ namespace JobBoard.MVC.UI.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private JobBoardEntities db = new JobBoardEntities();
+
         public AccountController()
         {
         }
@@ -90,7 +92,7 @@ namespace JobBoard.MVC.UI.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return View("Index");
+                    return RedirectToAction("Index", "Home");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -154,6 +156,7 @@ namespace JobBoard.MVC.UI.Controllers
         public async Task<ActionResult> Register()
         {
             ViewBag.RoleId = new SelectList(await RoleManager.Roles.ToListAsync(), "Name", "Name");
+            ViewBag.DepartmentId = new SelectList(db.Departments.ToList(), "DepartmentId", "DepartmentName");
             return View();
         }
 
@@ -183,6 +186,17 @@ namespace JobBoard.MVC.UI.Controllers
                     {
                         if (selectedRoles != null)
                         {
+                            var result = await UserManager.AddToRolesAsync(user.Id, selectedRoles);
+                            if (!result.Succeeded)
+                            {
+                                ModelState.AddModelError("", result.Errors.First());
+                                ViewBag.RoleId = new SelectList(await RoleManager.Roles.ToListAsync(), "Name", "Name");
+                                return View();
+                            }
+                        }
+                        else
+                        {
+                            selectedRoles = string ("Employee");
                             var result = await UserManager.AddToRolesAsync(user.Id, selectedRoles);
                             if (!result.Succeeded)
                             {

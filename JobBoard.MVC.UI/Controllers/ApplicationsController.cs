@@ -34,6 +34,18 @@ namespace JobBoard.MVC.UI.Controllers
                 return View(applications.ToList());
         }
 
+        public ActionResult SummitedApplications()
+        {
+            string userId = User.Identity.GetUserId();
+            var applications = db.Applications.Include(a => a.ApplicationStatu).Include(a => a.OpenPosition).Include(a => a.UserDetail).Where(a => a.OpenPosition.Location.ManagerId == userId);
+            if (User.IsInRole("Admin"))
+            {
+                applications = db.Applications.Include(a => a.ApplicationStatu).Include(a => a.OpenPosition).Include(a => a.UserDetail);
+                return View(applications.ToList());
+            }
+            return View(applications.ToList());
+        }
+
         // GET: Applications/Details/5
         public ActionResult Details(int? id)
         {

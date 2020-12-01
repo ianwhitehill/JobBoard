@@ -114,7 +114,7 @@ namespace JobBoard.MVC.UI.Controllers
                     return View();
 
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
             ViewBag.RoleId = new SelectList(RoleManager.Roles, "Name", "Name");
             return View();

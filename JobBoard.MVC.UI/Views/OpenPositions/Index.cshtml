@@ -32,10 +32,10 @@
                     @Html.DisplayFor(modelItem => item.CloseDate)
                 </td>
                 <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.OpenPositionId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.OpenPositionId })
                     @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
                     {
-                        @Html.ActionLink("Edit", "Edit", new { id = item.OpenPositionId }) <span> | </span>
+                        <span> | </span>@Html.ActionLink("Edit", "Edit", new { id = item.OpenPositionId })<span> | </span>
                         @Html.ActionLink("Delete", "Delete", new { id = item.OpenPositionId })
                     }
                 </td>

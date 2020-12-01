@@ -641,6 +641,7 @@
     <Content Include="Views\Home\EmailConfirmation.cshtml" />
     <Content Include="Views\OpenPositions\Create.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Applications\SummitedApplications.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -17,44 +17,45 @@
                 </div>
             </div>
         }
-            <dl class="dl-horizontal">
-                <dt>
-                    @Html.DisplayNameFor(model => model.CloseDate)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.CloseDate)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Location.StoreNumber)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Location.StoreNumber)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Position.Title)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Position.Title)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Position.Department)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Position.Department.DepartmentName)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Position.JobDescription)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Position.JobDescription)
-                </dd>
-            </dl>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.CloseDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CloseDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Location.StoreNumber)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Location.StoreNumber)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Position.Title)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Position.Title)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Position.Department)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Position.Department.DepartmentName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Position.JobDescription)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Position.JobDescription)
+            </dd>
+        </dl>
         @if (Request.IsAuthenticated)
         {
             <div class="form-actions"><input type="submit" value="Apply" class="btn btn-default" /></div>
         }
     </div>
 }
+
 <p>
     <br />
     @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
@@ -63,7 +64,6 @@
     }
     @Html.ActionLink("Back to List", "Index")
 </p>
-
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
