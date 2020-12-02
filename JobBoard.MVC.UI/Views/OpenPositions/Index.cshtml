@@ -3,8 +3,24 @@
     ViewBag.Title = "Index";
 }
 <h2>Open Postions</h2>
+<div>
+    <div>
+        <h4>Filter by Location</h4>
+        @using (Html.BeginForm("Index", "OpenPositions", FormMethod.Get))
+        {
+            <div class="row">
+                    <input type="submit" value="Go" class=" btn btn-primary col-md-1" />
+                    @Html.DropDownList("OpenFiltered", null, "[ - Choose Location - ]", new { @class = "form-control col-md-3" })
+            </div>
+        }
+    </div>
+</div>
 
-@using (Html.BeginForm())
+@if (Model.Count() == 0)
+{
+    <h4>Nothing currenly open at @Request.QueryString["OpenFiltered"].ToString()</h4>
+}
+else
 {
     <table class="table">
         <tr>

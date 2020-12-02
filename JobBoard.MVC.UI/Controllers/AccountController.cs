@@ -156,7 +156,7 @@ namespace JobBoard.MVC.UI.Controllers
         public async Task<ActionResult> Register()
         {
             ViewBag.RoleId = new SelectList(await RoleManager.Roles.ToListAsync(), "Name", "Name");
-            ViewBag.DepartmentId = new SelectList(db.Departments.ToList(), "DepartmentId", "DepartmentName");
+            ViewBag.Departments = new SelectList(db.Departments.ToList(), "DepartmentId", "DepartmentName");
             return View();
         }
 
@@ -180,8 +180,8 @@ namespace JobBoard.MVC.UI.Controllers
                     newUserDeets.UserID = user.Id;
                     newUserDeets.FirstName = model.FirstName;
                     newUserDeets.LastName = model.LastName;
-                    newUserDeets.CurrentEmployee = model.CurrentEmployee;
-                    newUserDeets.DepartmentId = model.DepartmentId;
+                    newUserDeets.CurrentEmployee = true;
+                    newUserDeets.DepartmentId = 8;
                     if (adminresult.Succeeded)
                     {
                         if (selectedRoles != null)
@@ -196,8 +196,7 @@ namespace JobBoard.MVC.UI.Controllers
                         }
                         else
                         {
-                            selectedRoles = string ("Employee");
-                            var result = await UserManager.AddToRolesAsync(user.Id, selectedRoles);
+                            var result = await UserManager.AddToRolesAsync(user.Id, "Employee");
                             if (!result.Succeeded)
                             {
                                 ModelState.AddModelError("", result.Errors.First());
@@ -239,7 +238,7 @@ namespace JobBoard.MVC.UI.Controllers
                         }
                     }
                     #endregion
-                    
+
                     newUserDeets.ResumeFileName = resName;
                     JobBoardEntities db = new JobBoardEntities();
                     db.UserDetails.Add(newUserDeets);
@@ -250,7 +249,7 @@ namespace JobBoard.MVC.UI.Controllers
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
                     ViewBag.Link = callbackUrl;
-                    return View("DisplayEmail");
+                    return RedirectToAction("Index", "Home");
                 }
                 AddErrors(adminresult);
             }

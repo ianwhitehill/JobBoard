@@ -9,14 +9,13 @@
     <div>
         <h4>Open Position</h4>
         <hr />
-        @if (ViewBag.userRes == "noResume.pdf")
-        {
-            <div>
-                <div style="background-color: white; border: none; border-radius: 0px;" id="dialog" title="Resume">
-                    <p>Ensure your resume is up to date before applying for this Potions. You can upload a new resume if needed in your User settings above.</p>
-                </div>
+
+        <div>
+            <div style="background-color: white; border: none; border-radius: 0px;" id="dialog" title="Resume">
+                <p>Ensure your resume is up to date before applying for this Potions. You can upload a new resume if needed in your User settings above.</p>
             </div>
-        }
+        </div>
+
         <dl class="dl-horizontal">
             <dt>
                 @Html.DisplayNameFor(model => model.CloseDate)
