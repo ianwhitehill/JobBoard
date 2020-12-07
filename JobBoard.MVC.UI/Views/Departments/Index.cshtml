@@ -1,9 +1,7 @@
 ﻿@model IEnumerable<JobBoard.Data.EF.Department>
-
 @{
     ViewBag.Title = "Index";
 }
-
 <table class="table">
     <tr>
         <th>
@@ -11,17 +9,19 @@
         </th>
         <th></th>
     </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.DepartmentName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.DepartmetntId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.DepartmetntId })
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartmentName)
+            </td>
+            <td>
+                @if (User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.DepartmetntId }) <span> | </span>
+                    @Html.ActionLink("Delete", "Delete", new { id = item.DepartmetntId })
+                }
+            </td>
+        </tr>
+    }
 </table>

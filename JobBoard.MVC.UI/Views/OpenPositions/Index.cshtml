@@ -9,8 +9,8 @@
         @using (Html.BeginForm("Index", "OpenPositions", FormMethod.Get))
         {
             <div class="row">
-                    <input type="submit" value="Go" class=" btn btn-primary col-md-1" />
-                    @Html.DropDownList("OpenFiltered", null, "[ - Choose Location - ]", new { @class = "form-control col-md-3" })
+                <input type="submit" value="Go" class=" btn btn-primary col-md-1" />
+                @Html.DropDownList("OpenFiltered", null, "[ - Choose Location - ]", new { @class = "form-control col-md-3" })
             </div>
         }
     </div>
@@ -27,31 +27,36 @@ else
             <th>
                 @Html.DisplayNameFor(model => model.Position.Title)
             </th>
+            <th class="hideMobile">
+                @Html.DisplayNameFor(model => model.Position.Department)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Location.City)
             </th>
-            <th>
+            <th class="hideMobile">
                 @Html.DisplayNameFor(model => model.CloseDate)
             </th>
-            <th></th>
+            <th class="hideMobile"></th>
         </tr>
         @foreach (var item in Model)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Position.Title)
+                    @Html.ActionLink(item.Position.Title, "Details", new { id = item.OpenPositionId })
+                </td>
+                <td class="hideMobile">
+                    @Html.DisplayFor(modelItem => item.Position.Department.DepartmentName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Location.City)
                 </td>
-                <td>
+                <td class="hideMobile">
                     @Html.DisplayFor(modelItem => item.CloseDate)
                 </td>
-                <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.OpenPositionId })
+                <td class="hideMobile">
                     @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
                     {
-                        <span> | </span>@Html.ActionLink("Edit", "Edit", new { id = item.OpenPositionId })<span> | </span>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.OpenPositionId })<span> | </span>
                         @Html.ActionLink("Delete", "Delete", new { id = item.OpenPositionId })
                     }
                 </td>

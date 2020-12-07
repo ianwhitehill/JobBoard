@@ -19,30 +19,59 @@ namespace JobBoard.MVC.UI.Controllers
         // GET: Applications
         public ActionResult Index()
         {
+            //defualt to let users is only thier applications
             string userId = User.Identity.GetUserId();
             var applications = db.Applications.Include(a => a.ApplicationStatu).Include(a => a.OpenPosition).Include(a => a.UserDetail).Where(a => a.UserId == userId);
+
+            //admin can see all summited application
             if (User.IsInRole("Admin"))
             {
                 applications = db.Applications.Include(a => a.ApplicationStatu).Include(a => a.OpenPosition).Include(a => a.UserDetail);
                 return View(applications.ToList());
             }
+
+            //manager can see thier apps and apps summited to there location
             if (User.IsInRole("Manager"))
             {
                 applications = db.Applications.Include(a => a.ApplicationStatu).Include(a => a.OpenPosition).Include(a => a.UserDetail).Where(a => a.OpenPosition.Location.ManagerId == userId || a.UserId == userId);
-                 return View(applications.ToList());
-            }
                 return View(applications.ToList());
+            }
+
+            return View(applications.ToList());
         }
 
-        public ActionResult SummitedApplications()
+        public ActionResult SummitedApplications(int? id)
         {
+            //defaulted to user seeing there application 
             string userId = User.Identity.GetUserId();
             var applications = db.Applications.Include(a => a.ApplicationStatu).Include(a => a.OpenPosition).Include(a => a.UserDetail).Where(a => a.OpenPosition.Location.ManagerId == userId);
-            if (User.IsInRole("Admin"))
+
+            //check if a id for openpostions was passed back
+            if (id == null)
             {
-                applications = db.Applications.Include(a => a.ApplicationStatu).Include(a => a.OpenPosition).Include(a => a.UserDetail);
-                return View(applications.ToList());
+                if (User.IsInRole("Admin"))
+                {
+                    applications = db.Applications.Include(a => a.ApplicationStatu).Include(a => a.OpenPosition).Include(a => a.UserDetail);
+                    return View(applications.ToList());
+                }
+
             }
+            //if openpostions id was passed back only give the summited application back to the view
+            else
+            {
+                if (User.IsInRole("Admin"))
+                {
+                    applications = db.Applications.Include(a => a.ApplicationStatu).Include(a => a.OpenPosition).Include(a => a.UserDetail).Where(a => a.OpenPositionId == id);
+                    return View(applications.ToList());
+                }
+                //managers can only see application for thier location
+                if (User.IsInRole("Manager"))
+                {
+                    applications = db.Applications.Include(a => a.ApplicationStatu).Include(a => a.OpenPosition).Include(a => a.UserDetail).Where(a => a.OpenPosition.Location.ManagerId == userId && a.OpenPositionId == id);
+                    return View(applications.ToList());
+                }
+            }
+
             return View(applications.ToList());
         }
 

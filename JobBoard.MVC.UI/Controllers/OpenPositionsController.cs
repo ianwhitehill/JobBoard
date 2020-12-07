@@ -36,6 +36,18 @@ namespace JobBoard.MVC.UI.Controllers
         // GET: OpenPositions/Details/5
         public ActionResult Details(int? id)
         {
+            //check to see if user has already applied
+            string userId = User.Identity.GetUserId();
+            bool applied = false;
+            var apps = db.Applications.Where(y => y.OpenPositionId == id).ToList();
+            foreach (var x in apps)
+            {
+                if (x.UserId == userId)
+                {
+                    applied = true;
+                }
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -45,6 +57,7 @@ namespace JobBoard.MVC.UI.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Hasapplied = applied;
             return View(openPosition);
         }
 

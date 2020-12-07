@@ -9,7 +9,7 @@
         <th>
             @Html.DisplayNameFor(model => model.OpenPosition.Position.Title)
         </th>
-        <th>
+        <th class="hideMobile">
             @Html.DisplayNameFor(model => model.OpenPosition.Location)
         </th>
         <th>
@@ -18,7 +18,7 @@
         <th>
             @Html.DisplayNameFor(model => model.UserDetail.userFullname)
         </th>
-        <th></th>
+        <th class="hideMobile"></th>
     </tr>
     @foreach (var item in Model)
     {
@@ -27,9 +27,9 @@
                 @Html.DisplayFor(modelItem => item.ApplicationDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.OpenPosition.Position.Title)
+                @Html.ActionLink(item.OpenPosition.Position.Title, "Edit", new { id = item.ApplicationId })
             </td>
-            <td>
+            <td  class="hideMobile">
                 @Html.DisplayFor(modelItem => item.OpenPosition.Location.City)
             </td>
             <td>
@@ -38,7 +38,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.UserDetail.userFullname)
             </td>
-            <td>
+            <td  class="hideMobile">
                 @Html.ActionLink("Details", "Edit", new { id = item.ApplicationId })
                 @if (User.IsInRole("Admin"))
                 {

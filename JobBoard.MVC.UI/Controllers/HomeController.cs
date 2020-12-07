@@ -15,7 +15,6 @@ namespace JobBoard.MVC.UI.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public ActionResult About()
         {
             ViewBag.Message = "Your app description page.";
@@ -31,6 +30,7 @@ namespace JobBoard.MVC.UI.Controllers
             return View();
         }
 
+        //Email form controller actions to host 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Contact(ContactEmailModel cem)

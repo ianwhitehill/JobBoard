@@ -1,7 +1,9 @@
 ﻿@model JobBoard.Data.EF.Application
+
 @{
     ViewBag.Title = "Edit";
 }
+
 @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
 {
     <h2>Manager View</h2>
@@ -17,38 +19,31 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ApplicationId)
 
+        @Html.HiddenFor(model => model.UserId)
         <div class="form-group">
-            @Html.LabelFor(model => model.UserDetail.userFullname, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.UserId, "Name", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DisplayFor(model => model.UserDetail.userFullname)
+                @*@Html.DropDownList("UserId", null, htmlAttributes: new { @class = "form-control" })*@
+                @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        @Html.HiddenFor(model => model.OpenPositionId)
         <div class="form-group">
-            @Html.LabelFor(model => model.OpenPosition.Position.Department, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DisplayFor(model => model.OpenPosition.Position.Department.DepartmentName)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.OpenPosition, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.OpenPositionId, "Position", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DisplayFor(model => model.OpenPosition.Position.Title)
+                @*@Html.DropDownList("OpenPositionId", null, htmlAttributes: new { @class = "form-control" })*@
+                @Html.ValidationMessageFor(model => model.OpenPositionId, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.OpenPosition.Location, "Location", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DisplayFor(model => model.OpenPosition.Location.City)
-            </div>
-        </div>
-
+        @Html.HiddenFor(model => model.ApplicationDate)
         <div class="form-group">
             @Html.LabelFor(model => model.ApplicationDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DisplayFor(model => model.ApplicationDate)
+                @*@Html.EditorFor(model => model.ApplicationDate, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.ApplicationDate, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -86,10 +81,19 @@
                 </div>
             </div>
         }
+        @Html.HiddenFor(model => model.ResumeFilename)
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.ResumeFilename, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.ResumeFilename)
+                @Html.ValidationMessageFor(model => model.ResumeFilename, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <div class="col-md-10">
                 <a href="~/Resumes/@Model.ResumeFilename" target="_blank" class="btn btn-primary">Resume Download</a>
+                @Html.ValidationMessageFor(model => model.UserDetail.ResumeFileName, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -101,12 +105,9 @@
                 </div>
             </div>
         }
-
-        <div>
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-        @section Scripts {
-            @Scripts.Render("~/bundles/jqueryval")
-        }
     </div>
 }
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

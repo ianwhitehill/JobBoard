@@ -175,13 +175,13 @@ namespace JobBoard.MVC.UI.Controllers
                 {
 
                     #region Dealing with custom user details
-
+                    //create user deatails at registion 
                     UserDetail newUserDeets = new UserDetail();
                     newUserDeets.UserID = user.Id;
                     newUserDeets.FirstName = model.FirstName;
                     newUserDeets.LastName = model.LastName;
-                    newUserDeets.CurrentEmployee = true;
-                    newUserDeets.DepartmentId = 8;
+                    newUserDeets.CurrentEmployee = true;//defualted to true untill appication becomes open to the public 
+                    newUserDeets.DepartmentId = 8;//defaulted to defualt 
                     if (adminresult.Succeeded)
                     {
                         if (selectedRoles != null)
@@ -213,7 +213,7 @@ namespace JobBoard.MVC.UI.Controllers
                         return View();
                     }
 
-
+                    //resume upload 
                     #region file upload
                     string resName = "noResume.pdf";
                     if (newResume != null)

@@ -9,13 +9,14 @@
     <div>
         <h4>Open Position</h4>
         <hr />
-
-        <div>
-            <div style="background-color: white; border: none; border-radius: 0px;" id="dialog" title="Resume">
-                <p>Ensure your resume is up to date before applying for this Potions. You can upload a new resume if needed in your User settings above.</p>
+        @if (Request.IsAuthenticated && ViewBag.Hasapplied == false)
+        {
+            <div>
+                <div style="background-color: white; border: none; border-radius: 0px;" id="dialog" title="Resume">
+                    <p>Ensure your resume is up to date before applying for this Potions. You can upload a new resume if needed in your User settings above.</p>
+                </div>
             </div>
-        </div>
-
+        }
         <dl class="dl-horizontal">
             <dt>
                 @Html.DisplayNameFor(model => model.CloseDate)
@@ -48,9 +49,17 @@
                 @Html.DisplayFor(model => model.Position.JobDescription)
             </dd>
         </dl>
-        @if (Request.IsAuthenticated)
+        @if (ViewBag.Hasapplied == true)
+        {
+            <label style="font-weight: bolder">YOU HAVE ALREADY APPLIED FOR THIS POSITION!</label>
+        }
+        @if (Request.IsAuthenticated && ViewBag.Hasapplied == false)
         {
             <div class="form-actions"><input type="submit" value="Apply" class="btn btn-default" /></div>
+        }
+        @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+        {
+            <div><br /><a href="@Url.Action("SummitedApplications", "Applications", new { id = Model.OpenPositionId })" class="btn btn-default">Summited Applications</a></div>
         }
     </div>
 }

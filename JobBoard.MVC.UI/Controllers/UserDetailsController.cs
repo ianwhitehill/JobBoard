@@ -23,6 +23,7 @@ namespace JobBoard.MVC.UI.Controllers
         }
 
         // GET: UserDetails/Details/5
+        [Authorize]
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -63,6 +64,7 @@ namespace JobBoard.MVC.UI.Controllers
         }
 
         // GET: UserDetails/Edit/5
+        [Authorize]
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -87,10 +89,13 @@ namespace JobBoard.MVC.UI.Controllers
         {
             if (ModelState.IsValid)
             {
+                //resume edit
                 #region file upload
-                string resName = newResume.FileName;
+;
                 if (newResume != null)
-                {           
+                {
+                    string resName = newResume.FileName;
+
                     string ext = resName.Substring(resName.LastIndexOf("."));
 
                     string[] goodExts = { ".pdf", ".doc", ".docx", ".docm", ".txt" };
@@ -102,20 +107,23 @@ namespace JobBoard.MVC.UI.Controllers
                         string savePath = Server.MapPath("~/Resumes/");
 
                         newResume.SaveAs(savePath + resName);
+
+                        userDetail.ResumeFileName = resName;
                     }
       
                 }
                 #endregion
-                userDetail.ResumeFileName = resName;
+
                 db.Entry(userDetail).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
             ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmetntId", "DepartmentName", userDetail.DepartmentId);
             return View(userDetail);
         }
 
         // GET: UserDetails/Delete/5
+        [Authorize]
         public ActionResult Delete(string id)
         {
             if (id == null)
